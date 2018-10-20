@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Sponsor Intake Form</h2>
+<form action="update/" method="post">
+{% csrf_token %}
+    First Name:<input id="first_name" type="text" name="first_name" ><br>
+    Last Name:<input id="last_name" type="text" name="last_name" ><br>
+    Phone Number:<input id="phone_number" type="text" name="phone_number" ><br>
+    City:<input id="city" type="text" name="city"><br>
+    Province/State/Region:<input id="province_state_region" type="text" name="province_state_region"><br>
+    Country:<input id="country" type="text" name="country"><br>
+    Time Zone<input id="timezone" type="text" name="timezone" ><br>
+    Langauges Spoken (please separate by comma):<input id="language" type="text" name="languages" ><br>
+    Platforms used for communication:<br>
+      <input type="checkbox" name="comm" value="phone">Phone<br>
+      <input type="checkbox" name="comm" value="email">Email<br>
+      <input type="checkbox" name="comm" value="Skype">Skype<br>
+      <input type="checkbox" name="comm" value="hangouts">Google Hangout<br>
+      <input type="checkbox" name="comm" value="facebook">Facebook<br>
+      <input type="checkbox" name="comm" value="whatsapp">WhatsApp<br>
+      <input type="checkbox" name="comm" value="viber">Viber<br>
+      <input type="checkbox" name="comm" value="slack">Slack<br>
+      <input type="checkbox" name="comm" value="other">Other<br>
+    What stage of Sponorship cycle are you in?<br>
+    <select name="Sponsor Stage">
+      <option value="1">Forming Sponsorship Group</option>
+      <option value="2">Application in Process</option>
+      <option value="3">Application Submitted- Awaiting Approval</option>
+      <option value="4">Application Submitted- Approved</option>
+      <option value="5">Post-Arrival</option>
+    </select><br>
+    Is your group faith-based? If yes, please specify<input id="faith" type="text" name="faith" ><br>
+    What type of refugee are you sponsoring?<br>
+    <select name="Refugee Type">
+      <option value="1">Family</option>
+      <option value="2">Couple</option>
+      <option value="3">Group</option>
+      <option value="4">Single Individual</option>
+    </select><br>
+    What region is the refugee you are currently sponsoring from?:<input id="refugee_region" type="text" name="refugee_region"><br>
+    How many refugee(s) have you sponsored?
+    <select name="Refugee Type">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8+</option>
+    </select><br>
+    <br><input type="submit" value="SUBMIT">
+</form>
+
+{% endblock %}

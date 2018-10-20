@@ -1,20 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(req):
-    template = loader.get_template('index.html')
-    context = {
-        'x': range(1),
-    }
-
-    return HttpResponse(template.render(context, req))
-
-def testPage(req):
-    return render(req, 'loginDemoPage.html', {})
+    return render(req, 'index.html', {})
 
 def logoutView(req):
     logout(req)
@@ -31,13 +24,24 @@ def register(req):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(req, user)
-            return redirect('index')
+            return render(req, 'form.html', {})
     else:
         form = UserCreationForm()
 
     return render(req, 'register.html', {'form': form})
 
-def userPage(req, user_id):
-    # get the page for this user
+def userUpdate(req):
+    if req.method == 'POST':
+        newProfile = Profile.createFromForm(req)
 
-    return HttpResponse('temp')
+        newProfile.save()
+
+        return render(req, 'user.html', {'pageUser': req.user})
+
+    else:
+        return render(req, 'form.html', {})
+
+def userPage(req, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    return render(req, 'user.html', {'pageUser': user})
