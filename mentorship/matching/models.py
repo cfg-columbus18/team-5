@@ -79,16 +79,16 @@ class Profile(models.Model):
         m.save()
 
     def isEligible(self):
-        return len(self.getActiveMentees()) < MENTEE_LIMIT and years_of_exp >= 2
+        return len(self.getActiveMentees()) < MENTEE_LIMIT and self.years_of_exp >= 2
 
     def getActiveRelationships(self):
-        return self.mentees.filter(is_active=True) + self.mentors.filter(is_active=True)
+        return self.user.mentees.filter(is_active=True) + self.user.mentors.filter(is_active=True)
 
     def getActiveMentees(self):
-        return self.mentees.filter(is_pending=False, is_active=True)
+        return self.user.mentees.filter(is_pending=False, is_active=True)
 
     def getPendingMentees(self):
-        return self.mentees.filter(is_pending=True)
+        return self.user.mentees.filter(is_pending=True)
 
     def deactiveRelationship(self, other):
         if other in set(self.getActiveRelationships()):
@@ -120,8 +120,8 @@ class Profile(models.Model):
             score += 3
 
         langCounter = 0
-        other = set(mentor.languages)
-        for l in self.languages:
+        other = set(mentor.languages.all())
+        for l in self.languages.all():
             if l in other:
                 langCounter = 3 if langCounter == 0 else langCounter + 5
 
@@ -146,8 +146,8 @@ class Profile(models.Model):
             score += 1
 
         commCount = 0
-        other = set(mentor.communication_platforms)
-        for c in self.communication_platforms:
+        other = set(mentor.communication_platforms.all())
+        for c in self.communication_platforms.all():
             if c in other:
                 commCount = 1 if commCount == 0 else commCount + 3
 
@@ -165,7 +165,7 @@ class Profile(models.Model):
         topScore = None
 
         for e in eligible:
-            newScore = self.scoreAgainst(e)
+            newScore = self.scoreAgainst(e.user)
 
             if bestMentor is None or topScore < newScore:
                 topScore = newScore
@@ -173,7 +173,7 @@ class Profile(models.Model):
 
         print(bestMentor)
 
-        return bestMentor
+        return bestMentor.user
 
 class Mentorship(models.Model):
     mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")

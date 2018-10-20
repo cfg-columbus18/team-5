@@ -11,5 +11,4 @@ urlpatterns = [
     path('users/<int:user_id>', views.userPage, name='userPage'),
     path('update/', views.userUpdate, name='userUpdate'),
     path('register/update/', views.userUpdate, name='userUpdate'),
-    path('getMentorTest', views.getMentorTest, name='getMentorTest'),
 ]

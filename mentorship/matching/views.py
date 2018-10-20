@@ -17,12 +17,6 @@ def logoutView(req):
     # TODO add a success message
     return redirect('index')
 
-def getMentorTest(req):
-    if req.user.is_authenticated:
-        req.user.profile.getNewMentor()
-
-    return redirect('index')
-
 def register(req):
     if req.user.is_authenticated:
         # TODO: message
