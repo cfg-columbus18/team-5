@@ -24,6 +24,10 @@ def getMentorTest(req):
     return redirect('index')
 
 def register(req):
+    if req.user.is_authenticated:
+        # TODO: message
+        return redirect('')
+
     if req.method == 'POST':
         form = UserCreationForm(req.POST)
         if form.is_valid():
@@ -40,8 +44,6 @@ def register(req):
 
 def userUpdate(req):
     if req.method == 'POST':
-
-        print(req.POST)
 
         Profile.createFromForm(req)
 
