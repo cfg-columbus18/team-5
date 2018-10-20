@@ -60,3 +60,6 @@ def userPage(req, user_id):
 
     return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : mentees,
                                           'mentors' : mentors})
+
+def chatbot(req):
+      return render(req, 'chatbot.html', {'hideHeader':True})
