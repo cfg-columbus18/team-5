@@ -42,20 +42,20 @@ def register(req):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(req, user)
-            return render(req, 'form.html', {})
+            return render(req, 'form.html', {'hideHeader':True})
     else:
         form = UserCreationForm()
 
-    return render(req, 'register.html', {'form': form})
+    return render(req, 'register.html', {'form': form,'hideHeader':True})
 
 def userUpdate(req):
     if req.method == 'POST':
         Profile.createFromForm(req)
 
-        return render(req, 'dashboard.html', {'pageUser': req.user})
+        return render(req, 'user.html', {'pageUser': req.user, 'hideHeader':True})
 
     else:
-        return render(req, 'form.html', {})
+        return render(req, 'form.html', {'hideHeader':True})
 
 def userPage(req, user_id):
     user = get_object_or_404(User, pk=user_id)
