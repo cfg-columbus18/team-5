@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 def index(req):
     template = loader.get_template('index.html')
     context = {
-        'x': range(5),
+        'x': range(1),
     }
 
     return HttpResponse(template.render(context, req))
