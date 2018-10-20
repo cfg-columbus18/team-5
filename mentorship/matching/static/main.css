@@ -137,7 +137,7 @@ header.masthead{
     background-image:linear-gradient(
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
-    ),url(../back.jpg);
+    ),url("images/back.jpg");
     background-position:center center;
     background-size:cover;
     background-attachment: fixed;
