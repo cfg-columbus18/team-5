@@ -185,7 +185,8 @@ class Profile(models.Model):
         return score
 
     def getNewMentor(self):
-        eligible = [x for x in Profile.objects.all() if x.isEligible() and x != self]
+        currentMentors = set(self.getAllMentors())
+        eligible = [x for x in Profile.objects.all() if x.isEligible() and x != self and x.user not in currentMentors]
 
         bestMentor = None
         topScore = None
@@ -197,7 +198,7 @@ class Profile(models.Model):
                 topScore = newScore
                 bestMentor = e
 
-        return bestMentor.user
+        return None if bestMentor is None else bestMentor.user
 
 class Mentorship(models.Model):
     mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentors")

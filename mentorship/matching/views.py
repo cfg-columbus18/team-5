@@ -18,17 +18,6 @@ def logoutView(req):
     # TODO add a success message
     return redirect('index')
 
-def addDefaultMentor(req):
-    mentor = req.user.profile.getNewMentor()
-
-    return addMentor(req, mentor)
-
-def addMentor(req,mentor):
-    newMentorship = Mentorship.objects.create(mentor = mentor, mentee = req.user)
-
-    # TODO:  users page
-    return userPage(req, req.user.id)
-
 def register(req):
     if req.user.is_authenticated:
         # TODO: message
@@ -58,15 +47,28 @@ def userUpdate(req):
         return render(req, 'form.html', {'hideHeader':True})
 
 def userPage(req, user_id):
-    user = get_object_or_404(User, pk=user_id)
+    if req.method == 'POST':
+        # add default method
+        mentor = req.user.profile.getNewMentor()
 
-    mentees = []
-    mentors = []
+        # if one was found -- ie, if not none
+        if mentor is not None:
+            newMentorship = Mentorship.objects.create(mentor = mentor, mentee = req.user)
 
-    for m in user.profile.getAllMentees():
-        mentees.append((m, user.profile.getRelationshipStatus(m)))
+        req.method = 'GET'
 
-    for m in user.profile.getAllMentors():
-        mentors.append((m, user.profile.getRelationshipStatus(m)))
+        return redirect('userPage', user_id = user_id)
 
-    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : mentees, 'mentors' : mentors})
+    else:
+        user = get_object_or_404(User, pk=user_id)
+
+        mentees = []
+        mentors = []
+
+        for m in user.profile.getAllMentees():
+            mentees.append((m, user.profile.getRelationshipStatus(m)))
+
+        for m in user.profile.getAllMentors():
+            mentors.append((m, user.profile.getRelationshipStatus(m)))
+
+        return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : mentees, 'mentors' : mentors})
