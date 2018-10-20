@@ -62,6 +62,13 @@ img::-moz-selection{
     color:#fff;
     background:0 0
 }
+.icon{
+  position: relative;
+  top: 5px;
+  right: 15px
+  left: 15px;
+  bottom: 5px;
+}
 #mainNav{
     border-bottom:1px solid rgba(33,37,41,.1);
     background-color:#fff;
@@ -97,7 +104,7 @@ img::-moz-selection{
 @media (min-width:992px){
     #mainNav{
         border-color:transparent;
-        background-color:transparent
+        background:rgba(1,1,1,0.5);
     }
     #mainNav .navbar-brand{
         color:rgba(255,255,255,.7)

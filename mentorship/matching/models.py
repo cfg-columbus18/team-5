@@ -31,18 +31,13 @@ class Profile(models.Model):
     faith = models.CharField(max_length=50)
     refugee_type = models.CharField(max_length=50)
     refugee_region = models.CharField(max_length=50)
-    years_of_exp = models.IntegerField()
-
-    def years_of_exp_default(self):
-        return 0
+    years_of_exp = models.IntegerField(default=0)
 
     # from form.html
     # no need to save after
     @classmethod
     def createFromForm(cls, req):
         p = req.POST
-
-        print(p['city'])
 
         prof = cls(user=req.user, first_name=p['first_name'], last_name=p['last_name'], phone_number=p['phone_number'],
                    city=p['city'], province_state_region=p['province_state_region'], country=p['country'], timezone=p['timezone'],
@@ -90,6 +85,22 @@ class Profile(models.Model):
     def getPendingMentees(self):
         return self.user.mentees.filter(is_pending=True)
 
+    def getAllMentees(self):
+        toReturn = []
+
+        for x in self.user.mentees.all():
+            toReturn.append(x.mentee)
+
+        return toReturn
+
+    def getAllMentors(self):
+        toReturn = []
+
+        for x in self.user.mentors.all():
+            toReturn.append(x.mentor)
+
+        return toReturn
+
     def deactiveRelationship(self, other):
         if other in set(self.getActiveRelationships()):
             deact = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)
@@ -109,6 +120,21 @@ class Profile(models.Model):
             toAccept = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=mentee.id)
             toAccept.activate()
             toAccept.noLongerPending()
+
+    def getRelationshipStatus(self, other):
+        rel = None
+
+        if other in set(self.getAllMentees()):
+            rel = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)
+        elif other in set(self.getAllMentors()):
+            rel = Mentorship.objects.get(mentee_id=self.user.id, mentor_id=other.id)
+
+        if not rel.is_active and rel.is_pending:
+            return "Pending"
+        elif rel.is_active:
+            return "Active"
+        else:
+            return "Inactive"
 
     def scoreAgainst(self, mentor):
         # return the value of this potential pairing - self to mentor
@@ -171,21 +197,13 @@ class Profile(models.Model):
                 topScore = newScore
                 bestMentor = e
 
-        print(bestMentor)
-
         return bestMentor.user
 
 class Mentorship(models.Model):
-    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")
-    mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentors")
-    is_active = models.BooleanField()
-    is_pending = models.BooleanField()
-
-    def is_active_default(self):
-        return False
-
-    def is_pending_default(self):
-        return True
+    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentors")
+    mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")
+    is_active = models.BooleanField(default=False)
+    is_pending = models.BooleanField(default=True)
 
     def deactivate(self):
         self.is_active = False

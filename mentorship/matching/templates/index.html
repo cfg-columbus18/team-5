@@ -2,7 +2,17 @@
 {% load static %}
 
 {% block content %}
+<head>
+  <style media="screen">
+  a:hover {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+  </style>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
   <header class="masthead text-center text-white d-flex">
     <div class="container my-auto">
       <div class="row">
@@ -47,7 +57,7 @@ We work with citizens, political leaders, policy makers, and civil society to bu
     </div>
   </section>
 
-  <section id="resources">
+  <section id="resources" style="margin: auto;">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -60,24 +70,24 @@ We work with citizens, political leaders, policy makers, and civil society to bu
       <div class="row" style="margin: 0 auto;">
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box mt-5 mx-auto">
-            <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
+            <img src="{% static "images\hand.png" %}" class="icon" alt="Donation pic" style="width:110px;height:140px;">
             <h3 class="mb-3">Donations</h3>
-            <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
+            <p><a href="https://refugeehub.ca/donate/">Help fund refugees</a></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box mt-5 mx-auto">
-            <i class="fas fa-4x fa-paper-plane text-primary mb-3 sr-icon-2"></i>
+            <img src="{% static "images\teaching.png" %}" class="icon" alt="Training pic" style="width:110px;height:140px;">
             <h3 class="mb-3">Training</h3>
-            <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
+            <p><a href="http://refugeesponsorship.org/resources/videos">Learn how you can help</a></p>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box mt-5 mx-auto">
-            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <img src="{% static "images\community.jpg" %}" class="icon" alt="Community pic" style="width:110px;height:140px;">
             <h3 class="mb-3">Community</h3>
-            <p class="text-muted mb-0">You have to make your websites with love these days!</p>
+            <p><a href="https://refugeehub.ca/community/">Be part of our growing community of sponsers</a></p>
           </div>
         </div>
       </div>

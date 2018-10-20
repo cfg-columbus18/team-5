@@ -6,7 +6,7 @@
    <!-- Sidebar  -->
    <nav id="sidebar">
       <div class="sidebar-header text-faded">
-         <a class="navbar-brand js-scroll-trigger" href="#page-top">THE REFUGEE HUB</a>
+         <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">THE REFUGEE HUB</a>
       </div>
       <ul class="list-unstyled components">
          <li class="active">
@@ -72,8 +72,11 @@
          </li>
       </ul>
    </nav>
+
    <!-- Page Content  -->
    <div id="content">
+     <!-- this should be a single partial that gets called twice but... hackathon -->
+     {% if mentees %}
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentees</h3>
          <div class="card-body">
@@ -88,76 +91,38 @@
                      <th class="text-center">Country</th>
                      <th class="text-center">Status</th>
                      <th class="text-center">Order</th>
-                     <th class="text-center">Remove</th>
+                     <th class="text-center">Disconnect</th>
                   </tr>
+                  {% for m in mentees %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                     <td class="pt-3-half" contenteditable="true">123-123-1233</td>
-                     <td class="pt-3-half" contenteditable="true">Columbus</td>
-                     <td class="pt-3-half" contenteditable="true">United States</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half" contenteditable="true"> <a href="{% url 'userPage' m.0.id %}">{{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
                            aria-hidden="true"></i></a></span>
                      </td>
                      <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                       {% if m.1 == 'Pending' %}
+                        <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Accept</button></span>
+                         <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Reject</button></span>
+                       {% elif m.1 != 'Inactive' %}
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Disconnect</button></span>
+                       {% endif %}
                      </td>
                   </tr>
+                  {% endfor %}
                   <!-- This is our clonable table line -->
-                  <tr>
-                     <td class="pt-3-half" contenteditable="true">Guerra Cortez</td>
-                     <td class="pt-3-half" contenteditable="true">999-999-8899</td>
-                     <td class="pt-3-half" contenteditable="true">Ottawa</td>
-                     <td class="pt-3-half" contenteditable="true">Canada</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
-                  <!-- This is our clonable table line -->
-                  <tr>
-                     <td class="pt-3-half" contenteditable="true">Guadalupe House</td>
-                     <td class="pt-3-half" contenteditable="true">235-141-1414</td>
-                     <td class="pt-3-half" contenteditable="true">Toronto</td>
-                     <td class="pt-3-half" contenteditable="true">Canada</td>
-                     <td class="pt-3-half" contenteditable="true">Resolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
-                  <!-- This is our clonable table line -->
-                  <tr class="hide">
-                     <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
-                     <td class="pt-3-half" contenteditable="true">333-333-3333</td>
-                     <td class="pt-3-half" contenteditable="true">London</td>
-                     <td class="pt-3-half" contenteditable="true">United Kingdom</td>
-                     <td class="pt-3-half" contenteditable="true">Resolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
                </table>
             </div>
          </div>
       </div>
+      {% endif %}
 
+      {% if mentors %}
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentors</h3>
          <div class="card-body">
@@ -174,43 +139,33 @@
                      <th class="text-center">Order</th>
                      <th class="text-center">Remove</th>
                   </tr>
+                  {% for m in mentors %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true">Captain Morgan</td>
-                     <td class="pt-3-half" contenteditable="true">555-555-5555</td>
-                     <td class="pt-3-half" contenteditable="true">Columbus</td>
-                     <td class="pt-3-half" contenteditable="true">United States</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half" contenteditable="true"><a href="{% url 'userPage' m.0.id %}"> {{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
                            aria-hidden="true"></i></a></span>
                      </td>
                      <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                       {% if m.1 != 'Inactive' %}
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Disconnect</button></span>
+                       {% endif %}
                      </td>
                   </tr>
-                  <!-- This is our clonable table line -->
-                  <tr>
-                     <td class="pt-3-half" contenteditable="true">Tony Stark</td>
-                     <td class="pt-3-half" contenteditable="true">111-111-1111</td>
-                     <td class="pt-3-half" contenteditable="true">New York</td>
-                     <td class="pt-3-half" contenteditable="true">United States</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
+                  {% endfor %}
+
                   <!-- This is our clonable table line -->
 
                </table>
             </div>
          </div>
       </div>
+      {% endif %}
    </div>
 </div>
 <!-- jQuery CDN - Slim version (=without AJAX) -->

@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from .models import Profile
+from .models import Mentorship
 
 # Create your views here.
 def index(req):
@@ -16,6 +17,17 @@ def logoutView(req):
 
     # TODO add a success message
     return redirect('index')
+
+def addDefaultMentor(req):
+    mentor = req.user.profile.getNewMentor()
+
+    return addMentor(req, mentor)
+
+def addMentor(req,mentor):
+    newMentorship = Mentorship.objects.create(mentor = mentor, mentee = req.user)
+
+    # TODO:  users page
+    return userPage(req, req.user.id)
 
 def register(req):
     if req.user.is_authenticated:
@@ -30,23 +42,31 @@ def register(req):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(req, user)
-            return render(req, 'form.html', {})
+            return render(req, 'form.html', {'hideHeader':True})
     else:
         form = UserCreationForm()
 
-    return render(req, 'register.html', {'form': form})
+    return render(req, 'register.html', {'form': form,'hideHeader':True})
 
 def userUpdate(req):
     if req.method == 'POST':
-
         Profile.createFromForm(req)
 
-        return render(req, 'user.html', {'pageUser': req.user})
+        return render(req, 'user.html', {'pageUser': req.user, 'hideHeader':True})
 
     else:
-        return render(req, 'form.html', {})
+        return render(req, 'form.html', {'hideHeader':True})
 
 def userPage(req, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader': True})
+    mentees = []
+    mentors = []
+
+    for m in user.profile.getAllMentees():
+        mentees.append((m, user.profile.getRelationshipStatus(m)))
+
+    for m in user.profile.getAllMentors():
+        mentors.append((m, user.profile.getRelationshipStatus(m)))
+
+    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : mentees, 'mentors' : mentors})
