@@ -13,9 +13,6 @@ def index(req):
 
     return HttpResponse(template.render(context, req))
 
-def testPage(req):
-    return render(req, 'loginDemoPage.html', {})
-
 def logoutView(req):
     logout(req)
 
