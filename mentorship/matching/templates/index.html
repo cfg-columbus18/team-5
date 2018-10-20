@@ -1,3 +1,8 @@
-{% for _ in x %}
-    <p>hello world</p>
-{% endfor %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  {% for _ in x %}
+      <p>hello world</p>
+  {% endfor %}
+{% endblock %}
