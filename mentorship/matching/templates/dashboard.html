@@ -2,6 +2,11 @@
 {% load static %}
 
 {% block content %}
+<form method="post">
+{% csrf_token %}
+<button type="submit">Get Mentor</button>
+</form>
+
 <div class="wrapper">
    <!-- Sidebar  -->
    <nav id="sidebar">
