@@ -1,20 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(req):
-    template = loader.get_template('index.html')
-    context = {
-        'x': range(1),
-    }
-
-    return HttpResponse(template.render(context, req))
-
-def testPage(req):
-    return render(req, 'loginDemoPage.html', {})
+    return render(req, 'index.html', {})
 
 def logoutView(req):
     logout(req)
@@ -53,10 +46,6 @@ def userUpdate(req):
         return render(req, 'form.html', {})
 
 def userPage(req, user_id):
-    # get the page for this user
+    user = get_object_or_404(User, pk=user_id)
 
-    return HttpResponse('temp')
-
-def form_view(request):
-    form = ProfileForm()
-    return render(request, '/form.html', {'form': form})
+    return render(req, 'user.html', {'pageUser': user})
