@@ -7,12 +7,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def index(req):
-    template = loader.get_template('index.html')
-    context = {
-        'x': range(1),
-    }
-
-    return HttpResponse(template.render(context, req))
+    return render(req, 'index.html', {})
 
 def logoutView(req):
     logout(req)
