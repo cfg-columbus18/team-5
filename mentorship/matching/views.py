@@ -17,9 +17,6 @@ def logoutView(req):
     # TODO add a success message
     return redirect('index')
 
-def testOne(req):
-    return render(req, 'dashboard.html', {})
-
 def register(req):
     if req.user.is_authenticated:
         # TODO: message
@@ -52,4 +49,4 @@ def userUpdate(req):
 def userPage(req, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    return render(req, 'user.html', {'pageUser': user})
+    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader': True})

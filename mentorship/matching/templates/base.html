@@ -28,7 +28,9 @@
     <!-- example js include -->
     <!-- <script src="{% static 'scripts/script.js' %}"></script> -->
 
-    {% include 'partials/_header.html' %}
+    {% if not hideHeader %}
+      {% include 'partials/_header.html' %}
+    {% endif %}
 
     {% block content %}{% endblock %}
 
