@@ -186,7 +186,8 @@ class Profile(models.Model):
 
     def getNewMentor(self):
         currentMentors = set(self.getAllMentors())
-        eligible = [x for x in Profile.objects.all() if x.isEligible() and x != self and x.user not in currentMentors]
+        currentMentees = set(self.getAllMentees())
+        eligible = [x for x in Profile.objects.all() if x.isEligible() and x != self and x.user not in currentMentors and x.user not in currentMentees]
 
         bestMentor = None
         topScore = None
