@@ -24,11 +24,26 @@ def register(req):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(req, user)
-            return redirect('index')
+            return render(req, 'form.html', {})
     else:
         form = UserCreationForm()
 
     return render(req, 'register.html', {'form': form})
+
+def userUpdate(req):
+    if req.method == 'POST':
+        fname = req.POST['first_name']
+
+#        newProfile = Profile(...)
+
+#        newProfile.save()
+
+        print(req.POST)
+
+        return render(req, '', {})
+
+    else:
+        return render(req, 'form.html', {})
 
 def userPage(req, user_id):
     user = get_object_or_404(User, pk=user_id)

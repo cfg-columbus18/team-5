@@ -9,4 +9,10 @@ urlpatterns = [
     path('logout/', views.logoutView, name='logout'),
     path('register/', views.register, name='register'),
     path('users/<int:user_id>', views.userPage, name='userPage'),
+<<<<<<< HEAD
+    path('test/', views.testPage, name='testPage'),
+    path('update/', views.userUpdate, name='userUpdate'),
+    path('register/update/', views.userUpdate, name='userUpdate'),
+=======
+>>>>>>> 46e2be78eacdfa3ab191697b4f395d9d14846d1e
 ]
