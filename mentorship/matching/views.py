@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from .models import Profile
+from .models import Mentorship
 
 # Create your views here.
 def index(req):
@@ -16,6 +17,17 @@ def logoutView(req):
 
     # TODO add a success message
     return redirect('index')
+
+def addDefaultMentor(req):
+    mentor = req.user.profile.getNewMentor()
+
+    return addMentor(req, mentor)
+
+def addMentor(req,mentor):
+    newMentorship = Mentorship.objects.create(mentor = mentor, mentee = req.user)
+
+    # TODO:  users page
+    return userPage(req, req.user.id)
 
 def register(req):
     if req.user.is_authenticated:
@@ -38,7 +50,6 @@ def register(req):
 
 def userUpdate(req):
     if req.method == 'POST':
-
         Profile.createFromForm(req)
 
         return render(req, 'user.html', {'pageUser': req.user, 'hideHeader':True})
