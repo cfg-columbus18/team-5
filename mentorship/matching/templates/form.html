@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block content %}
+
 <h2>Sponsor Intake Form</h2>
+
+
 <form action="update/" method="post">
 {% csrf_token %}
     First Name:<input id="first_name" type="text" name="first_name" ><br>
