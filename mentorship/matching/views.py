@@ -33,3 +33,8 @@ def register(req):
         form = UserCreationForm()
 
     return render(req, 'register.html', {'form': form})
+
+def userPage(req, user_id):
+    # get the page for this user
+
+    return HttpResponse('temp')
