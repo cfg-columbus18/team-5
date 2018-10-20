@@ -10,12 +10,6 @@ class Language(models.Model):
     def __str__(self):
         return self.language_name
 
-class SponsorComponent(models.Model):
-    sponsor_component = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.sponsor_component
-
 class CommunicationPlatform(models.Model):
     communication_platform = models.CharField(max_length=50)
 
@@ -34,46 +28,50 @@ class Profile(models.Model):
     communication_platforms = models.ManyToManyField(CommunicationPlatform)
     sponsor_stage = models.CharField(max_length=50)
     languages = models.ManyToManyField(Language)
-    sponsor_components = models.ManyToManyField(SponsorComponent)
     faith = models.CharField(max_length=50)
-    sponsor_type = models.CharField(max_length=50)
+    refugee_type = models.CharField(max_length=50)
     refugee_region = models.CharField(max_length=50)
     years_of_exp = models.IntegerField()
 
+    def years_of_exp_default(self):
+        return 0
+
     # from form.html
+    # no need to save after
     @classmethod
     def createFromForm(cls, req):
         p = req.POST
-        user_id = req.user.id
-        prof = cls(user_id=user_id, first_name=p['first_name'], last_name=p['last_name'], phone_number=p['phone_number'],
+
+        print(p['city'])
+
+        prof = cls(user=req.user, first_name=p['first_name'], last_name=p['last_name'], phone_number=p['phone_number'],
                    city=p['city'], province_state_region=p['province_state_region'], country=p['country'], timezone=p['timezone'],
-                   sponsor_stage=p['sponsor_stage'], faith=p['faith'], sponsor_type=p['sponsor_type'], refugee_type=p['refugee_type'],
+                   sponsor_stage=p['sponsor_stage'], faith=p['faith'], refugee_type=p['refugee_type'], refugee_region=p['refugee_region'],
                    years_of_exp=p['years_of_exp'])
+
+        prof.save()
 
         # now to add comm platforms,  languages, and components
 
         languages = p['languages'].split(',')
 
         for lan in p['languages']:
-            lan = lan.trim()
+            lan = lan.strip()
 
             if len(Language.objects.filter(language_name=lan)) == 0:
                 Language.objects.create(language_name=lan)
 
             prof.languages.add(Language.objects.filter(language_name=lan)[0])
 
-        for c in p['communication_platform']:
+        for c in p['comm']:
             if len(CommunicationPlatform.objects.filter(communication_platform=c)) == 0:
                 CommunicationPlatform.objects.create(communication_platform=c)
 
             prof.communication_platforms.add(CommunicationPlatform.objects.filter(communication_platform=c)[0])
 
-        for component in p['sponsor_component']:
-            if len(SponsorComponent.objects.filter(sponsor_component=component)) == 0:
-                SponsorComponent.objects.create(sponsor_component=component)
+        prof.save()
 
-            prof.sponsor_components.add(SponsorComponent.objects.filter(sponsor_component=component)[0])
-
+        return prof
 
     def requestMentorship(mentor):
         m = Mentorship(mentee = self.user.id, mentor = mentor.id)

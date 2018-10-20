@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Profile
+
 # Create your views here.
 def index(req):
     return render(req, 'index.html', {})
@@ -32,9 +34,10 @@ def register(req):
 
 def userUpdate(req):
     if req.method == 'POST':
-        newProfile = Profile.createFromForm(req)
 
-        newProfile.save()
+        print(req.POST)
+
+        Profile.createFromForm(req)
 
         return render(req, 'user.html', {'pageUser': req.user})
 
