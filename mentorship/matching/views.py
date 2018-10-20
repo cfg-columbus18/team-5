@@ -41,7 +41,7 @@ def userUpdate(req):
     if req.method == 'POST':
         Profile.createFromForm(req)
 
-        return render(req, 'user.html', {'pageUser': req.user, 'hideHeader':True})
+        return redirect('userPage', user_id = user_id)
 
     else:
         return render(req, 'form.html', {'hideHeader':True})

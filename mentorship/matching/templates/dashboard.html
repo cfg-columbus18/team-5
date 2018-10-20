@@ -2,11 +2,6 @@
 {% load static %}
 
 {% block content %}
-<form method="post">
-{% csrf_token %}
-<button type="submit">Get Mentor</button>
-</form>
-
 <div class="wrapper">
    <!-- Sidebar  -->
    <nav id="sidebar">
@@ -16,7 +11,7 @@
       <ul class="list-unstyled components">
         <li>
            <a href="#">
-           Welcome, <i><span class = "username">Tathya Joshi</span></i>
+           Welcome, <i><span class = "username">{{pageUser.profile.first_name}} {{pageUser.profile.last_name}}</span></i>
            </a>
         </li>
          <li class="active">
@@ -83,7 +78,11 @@
    <div id="content">
      <!-- this should be a single partial that gets called twice but... hackathon -->
      <div class = "row container-fluid top-bar">
-       <div class= "col-12-md" style="margin: 0 auto;"><a class="btn btn-light btn-xl js-scroll-trigger" href="">Find a Mentor</a>
+
+       <form method="post">
+       {% csrf_token %}
+       <div class= "col-12-md" style="margin: 0 auto;"><button type="submit" class="btn btn-light btn-xl js-scroll-trigger">Find a Mentor</button>
+       </form>
        <a class="btn btn-light btn-xl js-scroll-trigger" href="">Become a Mentor</a></div>
      </div>
      {% if mentees %}
