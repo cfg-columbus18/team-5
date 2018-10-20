@@ -1,9 +1,39 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <h1>New User Profile Form</h1>
-    <form method="POST" class="sponsor-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+
+<form action="" method="post">
+
+    First Name:<input id="first_name" type="text" name="first_name" value="First name for sponsor.">
+    Last Name:<input id="last_name" type="text" name="last_name" value="Last name for sponsor.">
+    Phone Number:<input id="phone_number" type="text" name="phone_number" value="Default phone for sponsor.">
+    City:<input id="city" type="text" name="city" value="City of sponsor.">
+    Province/State/Region:<input id="province_state_region" type="text" name="province_state_region" value="Region of sponsor.">
+    Country:<input id="country" type="text" name="country" value="Country sponsor.">
+    Time Zone<input id="timezone" type="text" name="timezone" value="Timezone of sponsor.">
+    Langauges Spoken:<input id="language" type="text" name="languages" value="Languages spoken by sponsor.">
+    Platforms used for communication<input id="city" type="text" name="city" value="City phone for sponsor.">
+      <input type="radio" name="comm" value="phone" checked>Phone<br>
+      <input type="radio" name="comm" value="email">Email<br>
+      <input type="radio" name="comm" value="Skype">Skype<br>
+      <input type="radio" name="comm" value="hangouts">Google Hangout<br>
+      <input type="radio" name="comm" value="facebook">Facebook<br>
+      <input type="radio" name="comm" value="whatsapp">WhatsApp<br>
+      <input type="radio" name="comm" value="viber">Viber<br>
+      <input type="radio" name="comm" value="slack">Slack<br>
+      <input type="radio" name="comm" value="other">Other
+    What stage of Sponorship cycle are you in?:<input id="sponsor_stage" type="text" name="sponsor_stage" value="sponsor stage.">
+    <select name="cars">
+      <option value="1">Forming Sponsorship Group</option>
+      <option value="2">Application in Process</option>
+      <option value="3">Application Submitted- Awaiting Approval</option>
+      <option value="4">Application Submitted- Approved</option>
+      <option value="5">Post-Arrival</option>
+    </select>
+    Is your group faith-based?<input id="faith" type="text" name="faith" value="Faith of sponsor.">
+    Sponsor
+    <input type="submit" value="OK">
+</form>
+
 {% endblock %}

@@ -37,6 +37,12 @@ def register(req):
 
     return render(req, 'register.html', {'form': form})
 
+def userUpdate(req):
+    if req.method == 'POST':
+        user = req.user # save for this user
+    else:
+        return render(req, 'form.html', {})
+
 def userPage(req, user_id):
     # get the page for this user
 
