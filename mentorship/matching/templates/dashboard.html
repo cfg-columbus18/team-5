@@ -14,6 +14,11 @@
          <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">THE REFUGEE HUB</a>
       </div>
       <ul class="list-unstyled components">
+        <li>
+           <a href="#">
+           Welcome, <i><span class = "username">Tathya Joshi</span></i>
+           </a>
+        </li>
          <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
             <i class="fas fa-home"></i>
@@ -71,16 +76,16 @@
             </a>
          </li>
       </ul>
-      <ul class="list-unstyled CTAs">
-         <li>
-            <a href="#" class="download"> Switch view</a>
-         </li>
-      </ul>
+
    </nav>
 
    <!-- Page Content  -->
    <div id="content">
      <!-- this should be a single partial that gets called twice but... hackathon -->
+     <div class = "row container-fluid top-bar">
+       <div class= "col-12-md" style="margin: 0 auto;"><a class="btn btn-light btn-xl js-scroll-trigger" href="">Find a Mentor</a>
+       <a class="btn btn-light btn-xl js-scroll-trigger" href="">Become a Mentor</a></div>
+     </div>
      {% if mentees %}
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentees</h3>

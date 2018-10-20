@@ -242,10 +242,40 @@ padding-top: 1.4rem;
 }
 
 .card {
+  padding: 30px;
   margin: 0 auto;
   width: 80%;
   margin-top: 20px;
+  border-radius: 10px;
+  border-width: medium;
+  border-color: #E09D34;
 }
 .colored-row {
   background-color: #E09D34;
+}
+.top-bar {
+  height: 6rem;
+  background-color: #E09D34;
+}
+.username {
+  color: #E09D34;
+
+}
+.btn{
+    font-weight:700;
+    margin: 20px;
+    text-transform:uppercase;
+    border:none;
+    border-radius:300px;
+    font-family:'Open Sans','Helvetica Neue',Arial,sans-serif
+}
+.btn-xl{
+    padding:1rem 2rem
+}
+.btn-primary{
+    background-color:#fff;
+    border-color:#fff;
+    color: black;
+    display: flex;
+    justify-content: center;
 }
