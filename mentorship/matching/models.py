@@ -78,9 +78,24 @@ class Profile(models.Model):
             toAccept.activate()
             toAccept.noLongerPending()
 
-    def getNewMentor(self):
+    def scoreAgainst(self, mentor):
+        # return the value of this potential pairing - self to mentor
+        pass
 
-        return None
+    def getNewMentor(self):
+        eligible = [x for x in Profile.objects.all() if x.isEligible() and x != self]
+
+        bestMentor = None
+        topScore = None
+
+        for e in eligible:
+            newScore = self.scoreAgainst(e)
+
+            if bestMentor is None or topScore < newScore:
+                topScore = newScore
+                bestMentor = e
+
+        return bestMentor
 
 class Mentorship(models.Model):
     mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")
