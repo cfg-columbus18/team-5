@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# number of mentees that a mentor can have at once
+MENTEE_LIMIT = 3
+
 class Language(models.Model):
     language_name = models.CharField(max_length=50)
 
@@ -36,3 +39,72 @@ class Profile(models.Model):
     faith = models.CharField(max_length=50)
     sponsor_type = models.CharField(max_length=50)
     refugee_region = models.CharField(max_length=50)
+    years_of_exp = models.IntegerField()
+
+    def requestMentorship(mentor):
+        m = Mentorship(mentee = self.user.id, mentor = mentor.id)
+
+        m.save()
+
+    def isEligible(self):
+        return len(getActiveMentees) < MENTEE_LIMIT and years_of_exp >= 2
+
+    def getActiveRelationships(self):
+        return self.mentees.filter(is_active=True) + self.mentors.filter(is_active=True)
+
+    def getActiveMentees(self):
+        return self.mentees.filter(is_pending=False, is_active=True)
+
+    def getPendingMentees(self):
+        return self.mentees.filter(is_pending=True)
+
+    def deactiveRelationship(self, other):
+        if other in set(self.getActiveRelationships()):
+            deact = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)
+
+            if deact is None:
+                deact = Mentorship.objects.get(mentee_id=other.id, mentor_id=self.user.id)
+
+            deact.deactivate()
+
+    def rejectMentee(self, mentee):
+        if mentee in set(self.getPendingMentees()):
+            toReject = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=mentee.id)
+            toReject.noLongerPending()
+
+    def acceptMentee(self, mentee):
+        if mentee in set(self.getPendingMentees()):
+            toAccept = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=mentee.id)
+            toAccept.activate()
+            toAccept.noLongerPending()
+
+    def getNewMentor(self):
+
+        return None
+
+class Mentorship(models.Model):
+    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")
+    mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentors")
+    is_active = models.BooleanField()
+    is_pending = models.BooleanField()
+
+    def is_active_default(self):
+        return False
+
+    def is_pending_default(self):
+        return True
+
+    def deactivate(self):
+        self.is_active = False
+
+        self.save()
+
+    def activate(self):
+        self.is_active = True
+
+        self.save()
+
+    def noLongerPending(self):
+        self.is_pending = False
+
+        self.save()
