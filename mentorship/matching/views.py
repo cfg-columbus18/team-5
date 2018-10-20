@@ -73,4 +73,4 @@ def userPage(req, user_id):
                                           'mentors' : mentors})
 
 def chatbot(req):
-    return render(req, 'chatbot.html', {})
+    return render(req, 'chatbot.html', {'hideHeader':True})

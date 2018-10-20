@@ -12,5 +12,5 @@ urlpatterns = [
     path('update/', views.userUpdate, name='userUpdate'),
     path('register/update/', views.userUpdate, name='userUpdate'),
     path('test/', views.addDefaultMentor, name='newMentorTest'),
-    path('chatbot/', views.chatbot, name='cbot')
+    path('chatbot/', views.chatbot, name='chatbot')
 ]

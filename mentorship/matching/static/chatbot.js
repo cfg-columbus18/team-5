@@ -20,7 +20,7 @@ var messages = [], //array that hold the record of each string in chat
 //edit this function to change what the chatbot says
 function chatbotResponse() {
   talking = true;
-  botMessage = "I'm confused"; //the default message
+  botMessage = "greetings!"; //the default message
 
   if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
     const hi = ['hi','howdy','hello']
@@ -31,8 +31,10 @@ function chatbotResponse() {
     botMessage = 'My name is ' + botName;
   }
 
-  if (lastUserMessage === 'name') {
-    botMessage = 'My name is ' + botName;
+  var patt = /\b(refugee|refuge(s|e)?)\b/i;
+  var result = patt.exec(lastUserMessage);
+  if (result) {
+    botMessage = 'How would you like to help a ' + result[0];
   }
 }
 //****************************************************************
