@@ -104,11 +104,11 @@
                   </tr>
                   {% for m in mentees %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true"> <a href="{% url 'userPage' m.0.id %}">{{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
+                     <td class="pt-3-half" contenteditable="false"> <a href="{% url 'userPage' m.0.id %}">{{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="false">{{m.0.profile.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="false">{{m.0.profile.city}}</td>
+                     <td class="pt-3-half" contenteditable="false">{{m.0.profile.country}}</td>
+                     <td class="pt-3-half" contenteditable="false">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
@@ -150,11 +150,11 @@
                   </tr>
                   {% for m in mentors %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true"><a href="{% url 'userPage' m.0.id %}"> {{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
+                     <td class="pt-3-half" contenteditable="false"><a href="{% url 'userPage' m.0.id %}"> {{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="false">{{m.0.profile.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="false">{{m.0.profile.city}}</td>
+                     <td class="pt-3-half" contenteditable="false">{{m.0.profile.country}}</td>
+                     <td class="pt-3-half" contenteditable="false">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
