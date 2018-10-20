@@ -41,3 +41,7 @@ def userPage(req, user_id):
     # get the page for this user
 
     return HttpResponse('temp')
+
+def form_view(request):
+    form = ProfileForm()
+    return render(request, '/form.html', {'form': form})
