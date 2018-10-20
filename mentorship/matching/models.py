@@ -116,6 +116,21 @@ class Profile(models.Model):
             toAccept.activate()
             toAccept.noLongerPending()
 
+    def getRelationshipStatus(self, other):
+        if other in set(self.getAllMentees):
+            rel = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)
+        elif other in set(self.getAllMentors):
+            rel = Mentorship.objects.get(mentee_id=self.user.id, mentor_id=other.id)
+
+            if rel.is_active and rel.is_pending:
+                return "Pending"
+            elif rel.is_active:
+                return "Active"
+            else:
+                return "Inactive"
+        else:
+            return None
+
     def scoreAgainst(self, mentor):
         # return the value of this potential pairing - self to mentor
         mentor = mentor.profile

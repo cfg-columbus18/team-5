@@ -74,6 +74,7 @@
    </nav>
    <!-- Page Content  -->
    <div id="content">
+     <!-- this should be a single partial that gets called twice but... hackathon -->
      {% if mentees %}
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentees</h3>
@@ -89,22 +90,27 @@
                      <th class="text-center">Country</th>
                      <th class="text-center">Status</th>
                      <th class="text-center">Order</th>
-                     <th class="text-center">Resolve</th>
+                     <th class="text-center">Disconnect</th>
                   </tr>
-                  {% for mentee in mentees %}
+                  {% for m in mentees %}
                   <tr>
                      <td class="pt-3-half" contenteditable="true"> <a href="{% url "userPage" mentee.user.id %}"{{mentee.first_name}} {{mentee.last_name}}</a></td>
-                     <td class="pt-3-half" contenteditable="true">{{mentee.phone_number}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{mentee.city}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{mentee.country}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{mentee.name}}</td> <!-- TODO TODO TODO -->
+                     <td class="pt-3-half" contenteditable="true">{{m.0.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.country}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
                            aria-hidden="true"></i></a></span>
                      </td>
                      <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Resolve</button></span>
+                       {% if m.1 == 'Pending' %}
+                        <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Accept</button></span>
+                         <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Reject</button></span>
+                       {% elif m.1 != 'Inactive' %}
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Disconnect</button></span>
+                       {% endif %}
                      </td>
                   </tr>
                   {% endfor %}
@@ -132,20 +138,22 @@
                      <th class="text-center">Order</th>
                      <th class="text-center">Remove</th>
                   </tr>
-                  {% for mentor in mentors %}
+                  {% for m in mentors %}
                   <tr>
                      <td class="pt-3-half" contenteditable="true"><a href="{% url "userPage" mentor.user.id %}"{{mentor.first_name}} {{mentor.last_name}}</a></td>
-                     <td class="pt-3-half" contenteditable="true">{{mentor.phone_number}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{mentor.city}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{mentor.country}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{mentor.name}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.country}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
                            aria-hidden="true"></i></a></span>
                      </td>
                      <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                       {% if m.1 != 'Inactive' %}
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Disconnect</button></span>
+                       {% endif %}
                      </td>
                   </tr>
                   {% endfor %}

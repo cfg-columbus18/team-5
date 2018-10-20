@@ -49,5 +49,14 @@ def userUpdate(req):
 def userPage(req, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : user.profile.getAllMentees,
-                                          'mentors' : user.profile.getAllMentors})
+    mentees = []
+    mentors = []
+
+    for m in user.profile.getAllMentees():
+        mentees.append((m, user.profile.getRelationshipStatus(m)))
+
+    for m in user.profile.getAllMentors():
+        mentors.append((m, user.profile.getRelationshipStatus(m)))
+
+    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : mentees,
+                                          'mentors' : mentors})
