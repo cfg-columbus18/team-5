@@ -31,10 +31,7 @@ class Profile(models.Model):
     faith = models.CharField(max_length=50)
     refugee_type = models.CharField(max_length=50)
     refugee_region = models.CharField(max_length=50)
-    years_of_exp = models.IntegerField()
-
-    def years_of_exp_default(self):
-        return 0
+    years_of_exp = models.IntegerField(default=0)
 
     # from form.html
     # no need to save after
@@ -91,10 +88,20 @@ class Profile(models.Model):
         return self.user.mentees.filter(is_pending=True)
 
     def getAllMentees(self):
-        return self.user.mentees.all()
+        toReturn = []
+
+        for x in self.user.mentees.all():
+            toReturn.append(x.mentee)
+
+        return toReturn
 
     def getAllMentors(self):
-        return self.user.mentors.all()
+        toReturn = []
+
+        for x in self.user.mentors.all():
+            toReturn.append(x.mentor)
+
+        return toReturn
 
     def deactiveRelationship(self, other):
         if other in set(self.getActiveRelationships()):
@@ -117,9 +124,14 @@ class Profile(models.Model):
             toAccept.noLongerPending()
 
     def getRelationshipStatus(self, other):
-        if other in set(self.getAllMentees):
+
+        print(self.getAllMentees())
+        print(self.getAllMentors())
+        print(self.user.id)
+        if other in set(self.getAllMentees()):
             rel = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)
-        elif other in set(self.getAllMentors):
+        elif other in set(self.getAllMentors()):
+            print("mentee" + str(self.user.id) + " mentor: "+ str(other.id))
             rel = Mentorship.objects.get(mentee_id=self.user.id, mentor_id=other.id)
 
             if rel.is_active and rel.is_pending:
@@ -192,21 +204,13 @@ class Profile(models.Model):
                 topScore = newScore
                 bestMentor = e
 
-        print(bestMentor)
-
         return bestMentor.user
 
 class Mentorship(models.Model):
-    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")
-    mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentors")
-    is_active = models.BooleanField()
-    is_pending = models.BooleanField()
-
-    def is_active_default(self):
-        return False
-
-    def is_pending_default(self):
-        return True
+    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentors")
+    mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentees")
+    is_active = models.BooleanField(default=False)
+    is_pending = models.BooleanField(default=True)
 
     def deactivate(self):
         self.is_active = False
