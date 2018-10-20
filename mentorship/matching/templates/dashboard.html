@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="wrapper">
+   <!-- Sidebar  -->
+   <nav id="sidebar">
+      <div class="sidebar-header text-faded">
+         <a class="navbar-brand js-scroll-trigger" href="#page-top">THE REFUGEE HUB</a>
+      </div>
+      <ul class="list-unstyled components">
+         <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fas fa-home"></i>
+            Dashboard
+            </a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+               <li>
+                  <a href="#">Notifications</a>
+               </li>
+               <li>
+                  <a href="#">My Mentees</a>
+               </li>
+               <li>
+                  <a href="#">Chatroom</a>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <a href="#">
+            <i class="fas fa-briefcase"></i>
+            About
+            </a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fas fa-copy"></i>
+            Resources
+            </a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+               <li>
+                  <a href="#">Training</a>
+               </li>
+               <li>
+                  <a href="#">Donations</a>
+               </li>
+               <li>
+                  <a href="#">Sponsorships</a>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <a href="#">
+            <i class="fas fa-image"></i>
+            Profile
+            </a>
+         </li>
+         <li>
+            <a href="#">
+            <i class="fas fa-question"></i>
+            FAQ
+            </a>
+         </li>
+         <li>
+            <a href="#">
+            <i class="fas fa-paper-plane"></i>
+            Contact Support
+            </a>
+         </li>
+      </ul>
+      <ul class="list-unstyled CTAs">
+         <li>
+            <a href="#" class="download"> Switch view</a>
+         </li>
+      </ul>
+   </nav>
+   <!-- Page Content  -->
+   <div id="content">
+      <div class="card">
+         <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentees</h3>
+         <div class="card-body">
+            <div id="table" class="table-editable">
+               <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fa fa-plus fa-2x"
+                  aria-hidden="true"></i></a></span>
+               <table class="table table-bordered table-responsive-md table-striped text-center ">
+                  <tr class = "colored-row">
+                     <th class="text-center">Name</th>
+                     <th class="text-center">Phone</th>
+                     <th class="text-center">City</th>
+                     <th class="text-center">Country</th>
+                     <th class="text-center">Status</th>
+                     <th class="text-center">Order</th>
+                     <th class="text-center">Remove</th>
+                  </tr>
+                  <tr>
+                     <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                     <td class="pt-3-half" contenteditable="true">123-123-1233</td>
+                     <td class="pt-3-half" contenteditable="true">Columbus</td>
+                     <td class="pt-3-half" contenteditable="true">United States</td>
+                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half">
+                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                           aria-hidden="true"></i></a></span>
+                     </td>
+                     <td>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                     </td>
+                  </tr>
+                  <!-- This is our clonable table line -->
+                  <tr>
+                     <td class="pt-3-half" contenteditable="true">Guerra Cortez</td>
+                     <td class="pt-3-half" contenteditable="true">999-999-8899</td>
+                     <td class="pt-3-half" contenteditable="true">Ottawa</td>
+                     <td class="pt-3-half" contenteditable="true">Canada</td>
+                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half">
+                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                           aria-hidden="true"></i></a></span>
+                     </td>
+                     <td>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                     </td>
+                  </tr>
+                  <!-- This is our clonable table line -->
+                  <tr>
+                     <td class="pt-3-half" contenteditable="true">Guadalupe House</td>
+                     <td class="pt-3-half" contenteditable="true">235-141-1414</td>
+                     <td class="pt-3-half" contenteditable="true">Toronto</td>
+                     <td class="pt-3-half" contenteditable="true">Canada</td>
+                     <td class="pt-3-half" contenteditable="true">Resolved</td>
+                     <td class="pt-3-half">
+                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                           aria-hidden="true"></i></a></span>
+                     </td>
+                     <td>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                     </td>
+                  </tr>
+                  <!-- This is our clonable table line -->
+                  <tr class="hide">
+                     <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
+                     <td class="pt-3-half" contenteditable="true">333-333-3333</td>
+                     <td class="pt-3-half" contenteditable="true">London</td>
+                     <td class="pt-3-half" contenteditable="true">United Kingdom</td>
+                     <td class="pt-3-half" contenteditable="true">Resolved</td>
+                     <td class="pt-3-half">
+                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                           aria-hidden="true"></i></a></span>
+                     </td>
+                     <td>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+
+      <div class="card">
+         <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentors</h3>
+         <div class="card-body">
+            <div id="table" class="table-editable">
+               <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fa fa-plus fa-2x"
+                  aria-hidden="true"></i></a></span>
+               <table class="table table-bordered table-responsive-md table-striped text-center">
+                  <tr>
+                     <th class="text-center">Name</th>
+                     <th class="text-center">Phone</th>
+                     <th class="text-center">City</th>
+                     <th class="text-center">Country</th>
+                     <th class="text-center">Status</th>
+                     <th class="text-center">Order</th>
+                     <th class="text-center">Remove</th>
+                  </tr>
+                  <tr>
+                     <td class="pt-3-half" contenteditable="true">Captain Morgan</td>
+                     <td class="pt-3-half" contenteditable="true">555-555-5555</td>
+                     <td class="pt-3-half" contenteditable="true">Columbus</td>
+                     <td class="pt-3-half" contenteditable="true">United States</td>
+                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half">
+                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                           aria-hidden="true"></i></a></span>
+                     </td>
+                     <td>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                     </td>
+                  </tr>
+                  <!-- This is our clonable table line -->
+                  <tr>
+                     <td class="pt-3-half" contenteditable="true">Tony Stark</td>
+                     <td class="pt-3-half" contenteditable="true">111-111-1111</td>
+                     <td class="pt-3-half" contenteditable="true">New York</td>
+                     <td class="pt-3-half" contenteditable="true">United States</td>
+                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half">
+                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                           aria-hidden="true"></i></a></span>
+                     </td>
+                     <td>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                     </td>
+                  </tr>
+                  <!-- This is our clonable table line -->
+
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+{% endblock %}
