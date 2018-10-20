@@ -32,15 +32,11 @@ def register(req):
 
 def userUpdate(req):
     if req.method == 'POST':
-        fname = req.POST['first_name']
+        newProfile = Profile.createFromForm(req)
 
-#        newProfile = Profile(...)
+        newProfile.save()
 
-#        newProfile.save()
-
-        print(req.POST)
-
-        return render(req, '', {})
+        return render(req, 'user.html', {'pageUser': req.user})
 
     else:
         return render(req, 'form.html', {})

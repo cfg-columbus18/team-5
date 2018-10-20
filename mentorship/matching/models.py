@@ -23,11 +23,7 @@ class CommunicationPlatform(models.Model):
         return self.communication_platform
 
 class Profile(models.Model):
-<<<<<<< HEAD
-=======
-    # profile -> user ~foreignkey
->>>>>>> 46e2be78eacdfa3ab191697b4f395d9d14846d1e
-    profile = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=50)
@@ -43,6 +39,41 @@ class Profile(models.Model):
     sponsor_type = models.CharField(max_length=50)
     refugee_region = models.CharField(max_length=50)
     years_of_exp = models.IntegerField()
+
+    # from form.html
+    @classmethod
+    def createFromForm(cls, req):
+        p = req.POST
+        user_id = req.user.id
+        prof = cls(user_id=user_id, first_name=p['first_name'], last_name=p['last_name'], phone_number=p['phone_number'],
+                   city=p['city'], province_state_region=p['province_state_region'], country=p['country'], timezone=p['timezone'],
+                   sponsor_stage=p['sponsor_stage'], faith=p['faith'], sponsor_type=p['sponsor_type'], refugee_type=p['refugee_type'],
+                   years_of_exp=p['years_of_exp'])
+
+        # now to add comm platforms,  languages, and components
+
+        languages = p['languages'].split(',')
+
+        for lan in p['languages']:
+            lan = lan.trim()
+
+            if len(Language.objects.filter(language_name=lan)) == 0:
+                Language.objects.create(language_name=lan)
+
+            prof.languages.add(Language.objects.filter(language_name=lan)[0])
+
+        for c in p['communication_platform']:
+            if len(CommunicationPlatform.objects.filter(communication_platform=c)) == 0:
+                CommunicationPlatform.objects.create(communication_platform=c)
+
+            prof.communication_platforms.add(CommunicationPlatform.objects.filter(communication_platform=c)[0])
+
+        for component in p['sponsor_component']:
+            if len(SponsorComponent.objects.filter(sponsor_component=component)) == 0:
+                SponsorComponent.objects.create(sponsor_component=component)
+
+            prof.sponsor_components.add(SponsorComponent.objects.filter(sponsor_component=component)[0])
+
 
     def requestMentorship(mentor):
         m = Mentorship(mentee = self.user.id, mentor = mentor.id)
