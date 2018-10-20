@@ -49,4 +49,5 @@ def userUpdate(req):
 def userPage(req, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader': True})
+    return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : user.profile.getAllMentees,
+                                          'mentors' : user.profile.getAllMentors})

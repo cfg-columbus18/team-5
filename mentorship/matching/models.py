@@ -90,6 +90,12 @@ class Profile(models.Model):
     def getPendingMentees(self):
         return self.user.mentees.filter(is_pending=True)
 
+    def getAllMentees(self):
+        return self.user.mentees.all()
+
+    def getAllMentors(self):
+        return self.user.mentors.all()
+
     def deactiveRelationship(self, other):
         if other in set(self.getActiveRelationships()):
             deact = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)

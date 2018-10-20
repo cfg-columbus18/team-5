@@ -74,6 +74,7 @@
    </nav>
    <!-- Page Content  -->
    <div id="content">
+     {% if mentees %}
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentees</h3>
          <div class="card-body">
@@ -88,76 +89,33 @@
                      <th class="text-center">Country</th>
                      <th class="text-center">Status</th>
                      <th class="text-center">Order</th>
-                     <th class="text-center">Remove</th>
+                     <th class="text-center">Resolve</th>
                   </tr>
+                  {% for mentee in mentees %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                     <td class="pt-3-half" contenteditable="true">123-123-1233</td>
-                     <td class="pt-3-half" contenteditable="true">Columbus</td>
-                     <td class="pt-3-half" contenteditable="true">United States</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half" contenteditable="true"> <a href="{% url "userPage" mentee.user.id %}"{{mentee.first_name}} {{mentee.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true">{{mentee.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{mentee.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{mentee.country}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{mentee.name}}</td> <!-- TODO TODO TODO -->
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
                            aria-hidden="true"></i></a></span>
                      </td>
                      <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Resolve</button></span>
                      </td>
                   </tr>
+                  {% endfor %}
                   <!-- This is our clonable table line -->
-                  <tr>
-                     <td class="pt-3-half" contenteditable="true">Guerra Cortez</td>
-                     <td class="pt-3-half" contenteditable="true">999-999-8899</td>
-                     <td class="pt-3-half" contenteditable="true">Ottawa</td>
-                     <td class="pt-3-half" contenteditable="true">Canada</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
-                  <!-- This is our clonable table line -->
-                  <tr>
-                     <td class="pt-3-half" contenteditable="true">Guadalupe House</td>
-                     <td class="pt-3-half" contenteditable="true">235-141-1414</td>
-                     <td class="pt-3-half" contenteditable="true">Toronto</td>
-                     <td class="pt-3-half" contenteditable="true">Canada</td>
-                     <td class="pt-3-half" contenteditable="true">Resolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
-                  <!-- This is our clonable table line -->
-                  <tr class="hide">
-                     <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
-                     <td class="pt-3-half" contenteditable="true">333-333-3333</td>
-                     <td class="pt-3-half" contenteditable="true">London</td>
-                     <td class="pt-3-half" contenteditable="true">United Kingdom</td>
-                     <td class="pt-3-half" contenteditable="true">Resolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
                </table>
             </div>
          </div>
       </div>
+      {% endif %}
 
+      {% if mentors %}
       <div class="card">
          <h3 class="card-header text-center font-weight-bold text-uppercase py-4">My Mentors</h3>
          <div class="card-body">
@@ -174,12 +132,13 @@
                      <th class="text-center">Order</th>
                      <th class="text-center">Remove</th>
                   </tr>
+                  {% for mentor in mentors %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true">Captain Morgan</td>
-                     <td class="pt-3-half" contenteditable="true">555-555-5555</td>
-                     <td class="pt-3-half" contenteditable="true">Columbus</td>
-                     <td class="pt-3-half" contenteditable="true">United States</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
+                     <td class="pt-3-half" contenteditable="true"><a href="{% url "userPage" mentor.user.id %}"{{mentor.first_name}} {{mentor.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true">{{mentor.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{mentor.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{mentor.country}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{mentor.name}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
                         <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
@@ -189,28 +148,15 @@
                         <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
                      </td>
                   </tr>
-                  <!-- This is our clonable table line -->
-                  <tr>
-                     <td class="pt-3-half" contenteditable="true">Tony Stark</td>
-                     <td class="pt-3-half" contenteditable="true">111-111-1111</td>
-                     <td class="pt-3-half" contenteditable="true">New York</td>
-                     <td class="pt-3-half" contenteditable="true">United States</td>
-                     <td class="pt-3-half" contenteditable="true">Unresolved</td>
-                     <td class="pt-3-half">
-                        <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                        <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-                           aria-hidden="true"></i></a></span>
-                     </td>
-                     <td>
-                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                     </td>
-                  </tr>
+                  {% endfor %}
+
                   <!-- This is our clonable table line -->
 
                </table>
             </div>
          </div>
       </div>
+      {% endif %}
    </div>
 </div>
 <!-- jQuery CDN - Slim version (=without AJAX) -->
