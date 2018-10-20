@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
@@ -14,12 +14,10 @@ def index(req):
     return HttpResponse(template.render(context, req))
 
 def logoutView(req):
+    logout(req)
 
-    return HttpResponse("logout")
-
-def loginPage(req):
-
-    return HttpResponse("login")
+    # TODO add a success message
+    return redirect('index')
 
 def register(req):
     if req.method == 'POST':
