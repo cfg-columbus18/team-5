@@ -17,6 +17,9 @@ def logoutView(req):
     # TODO add a success message
     return redirect('index')
 
+def testOne(req):
+    return render(req, 'dashboard.html', {})
+
 def register(req):
     if req.method == 'POST':
         form = UserCreationForm(req.POST)
