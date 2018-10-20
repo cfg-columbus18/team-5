@@ -21,7 +21,7 @@ def logoutView(req):
 def addDefaultMentor(req):
     mentor = req.user.profile.getNewMentor()
 
-    addMentor(req, mentor)
+    return addMentor(req, mentor)
 
 def addMentor(req,mentor):
     newMentorship = Mentorship.objects.create(mentor = mentor, mentee = req.user)
@@ -68,18 +68,5 @@ def userPage(req, user_id):
 
     for m in user.profile.getAllMentors():
         mentors.append((m, user.profile.getRelationshipStatus(m)))
-
-    print(len(mentors))
-
-    for i in mentors:
-        print(i[0])
-        print('goal' == i[0])
-        print(type(i[0]) is User)
-        print(type(i[0]) is Profile)
-    for i in mentees:
-        print(i[0])
-        print('goal' == i[0])
-        print(type(i[0]) is User)
-        print(type(i[0]) is Profile)
 
     return render(req, 'dashboard.html', {'pageUser': user, 'hideHeader' : True, 'mentees' : mentees, 'mentors' : mentors})

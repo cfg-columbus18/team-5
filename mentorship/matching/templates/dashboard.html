@@ -141,7 +141,7 @@
                   </tr>
                   {% for m in mentors %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true"><a href="{% url 'userPage' m.0.id %}"> {{m.0.first_name}} {{m.0.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true"><a href="{% url 'userPage' m.0.id %}"> {{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
                      <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
                      <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
                      <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>

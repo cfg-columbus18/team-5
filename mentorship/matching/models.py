@@ -39,8 +39,6 @@ class Profile(models.Model):
     def createFromForm(cls, req):
         p = req.POST
 
-        print(p['city'])
-
         prof = cls(user=req.user, first_name=p['first_name'], last_name=p['last_name'], phone_number=p['phone_number'],
                    city=p['city'], province_state_region=p['province_state_region'], country=p['country'], timezone=p['timezone'],
                    sponsor_stage=p['sponsor_stage'], faith=p['faith'], refugee_type=p['refugee_type'], refugee_region=p['refugee_region'],
@@ -91,7 +89,6 @@ class Profile(models.Model):
         toReturn = []
 
         for x in self.user.mentees.all():
-            print(x)
             toReturn.append(x.mentee)
 
         return toReturn
@@ -100,7 +97,6 @@ class Profile(models.Model):
         toReturn = []
 
         for x in self.user.mentors.all():
-            print(x)
             toReturn.append(x.mentor)
 
         return toReturn
