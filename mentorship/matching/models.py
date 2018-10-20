@@ -91,6 +91,7 @@ class Profile(models.Model):
         toReturn = []
 
         for x in self.user.mentees.all():
+            print(x)
             toReturn.append(x.mentee)
 
         return toReturn
@@ -99,6 +100,7 @@ class Profile(models.Model):
         toReturn = []
 
         for x in self.user.mentors.all():
+            print(x)
             toReturn.append(x.mentor)
 
         return toReturn
@@ -124,14 +126,9 @@ class Profile(models.Model):
             toAccept.noLongerPending()
 
     def getRelationshipStatus(self, other):
-
-        print(self.getAllMentees())
-        print(self.getAllMentors())
-        print(self.user.id)
         if other in set(self.getAllMentees()):
             rel = Mentorship.objects.get(mentor_id=self.user.id, mentee_id=other.id)
         elif other in set(self.getAllMentors()):
-            print("mentee" + str(self.user.id) + " mentor: "+ str(other.id))
             rel = Mentorship.objects.get(mentee_id=self.user.id, mentor_id=other.id)
 
             if rel.is_active and rel.is_pending:

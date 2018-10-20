@@ -72,6 +72,7 @@
          </li>
       </ul>
    </nav>
+
    <!-- Page Content  -->
    <div id="content">
      <!-- this should be a single partial that gets called twice but... hackathon -->
@@ -94,10 +95,10 @@
                   </tr>
                   {% for m in mentees %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true"> <a href="{% url "userPage" mentee.user.id %}"{{mentee.first_name}} {{mentee.last_name}}</a></td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.phone_number}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.city}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.country}}</td>
+                     <td class="pt-3-half" contenteditable="true"> <a href="{% url 'userPage' m.0.id %}">{{m.0.profile.first_name}} {{m.0.profile.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>
                      <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
@@ -140,10 +141,10 @@
                   </tr>
                   {% for m in mentors %}
                   <tr>
-                     <td class="pt-3-half" contenteditable="true"><a href="{% url "userPage" mentor.user.id %}"{{mentor.first_name}} {{mentor.last_name}}</a></td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.phone_number}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.city}}</td>
-                     <td class="pt-3-half" contenteditable="true">{{m.0.country}}</td>
+                     <td class="pt-3-half" contenteditable="true"><a href="{% url 'userPage' m.0.id %}"> {{m.0.first_name}} {{m.0.last_name}}</a></td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.phone_number}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.city}}</td>
+                     <td class="pt-3-half" contenteditable="true">{{m.0.profile.country}}</td>
                      <td class="pt-3-half" contenteditable="true">{{m.1}}</td>
                      <td class="pt-3-half">
                         <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
