@@ -20,6 +20,8 @@ class CommunicationPlatform(models.Model):
         return self.communication_platform
 
 class Profile(models.Model):
+    # profile -> user ~foreignkey
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=50)
