@@ -112,7 +112,51 @@ class Profile(models.Model):
 
     def scoreAgainst(self, mentor):
         # return the value of this potential pairing - self to mentor
-        pass
+        mentor = mentor.profile
+
+        score = 1
+
+        if self.timezone == mentor.timezone:
+            score += 3
+
+        langCounter = 0
+        other = set(mentor.languages)
+        for l in self.languages:
+            if l in other:
+                langCounter = 3 if langCounter == 0 else langCounter + 5
+
+        score += langCounter
+
+        if self.province_state_region == mentor.province_state_region:
+            score += 2
+
+        if self.country == mentor.country:
+            score += 1
+
+        if self.faith == mentor.faith:
+            score += 2
+
+        if mentor.years_of_exp > 5:
+            score += 2
+
+        if mentor.refugee_type == self.refugee_type:
+            score += 1
+
+        if self.refugee_region == mentor.refugee_region:
+            score += 1
+
+        commCount = 0
+        other = set(mentor.communication_platforms)
+        for c in self.communication_platforms:
+            if c in other:
+                commCount = 1 if commCount == 0 else commCount + 3
+
+        if commCount == 0:
+            score -= 5
+        else:
+            score += commCount
+
+        return score
 
     def getNewMentor(self):
         eligible = [x for x in Profile.objects.all() if x.isEligible() and x != self]
@@ -126,6 +170,8 @@ class Profile(models.Model):
             if bestMentor is None or topScore < newScore:
                 topScore = newScore
                 bestMentor = e
+
+        print(bestMentor)
 
         return bestMentor
 
