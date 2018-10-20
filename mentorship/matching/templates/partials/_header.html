@@ -1,1 +1,16 @@
-<p> top </p>
+<!-- header - navbar -->
+{% load static %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top">
+  <div class="container-fluid">
+    {% if user.is_authenticated %}
+      <p class="navbar-text navbar-right">
+        <a href="{% url 'logout' %}" type="button" class="btn btn-primary">Sign Out</a>
+      </p>
+    {% else %}
+      <p class="navbar-text navbar-right">
+        <a type="button" class="btn btn-secondary" href="{% url 'login' %}">Log In</a>
+        <a type="button" class="btn btn-secondary" href="{% url 'register' %}">Sign Up</a>
+      </p>
+    {% endif %}
+  </div>
+</nav>

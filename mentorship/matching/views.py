@@ -10,3 +10,15 @@ def index(req):
     }
 
     return HttpResponse(template.render(context, req))
+
+def logout(req):
+
+    return HttpResponse("logout")
+
+def login(req):
+
+    return HttpResponse("login")
+
+def register(req):
+
+    return HttpResponse("register")
